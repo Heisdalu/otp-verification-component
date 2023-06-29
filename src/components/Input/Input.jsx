@@ -1,20 +1,44 @@
 import PropTypes from "prop-types";
 import { useEffect, useRef } from "react";
 import { formatNumber, removeFocusOnLastChild } from "../../utils/helper";
+
 const Input = ({ index, increaseCounter, counter, length, otpHandler }) => {
   const inputRef = useRef();
   const active = index === counter;
 
+  const defaultFunc = (e, inputRef, index, length, counter, value = null) => {
+    if (index === counter) {
+      removeFocusOnLastChild(index, length, inputRef);
+      otpHandler(index, e.target.value);
+      increaseCounter(value);
+    }
+  };
+
   const handler = (e) => {
     formatNumber(e);
+    // if (!Number.isFinite(Number(e.target.value))) return;
+    if (e.key === "ArrowLeft") {
+      const arrowLeftValue = counter - 1 <= 1 ? 1 : counter;
+      console.log(arrowLeftValue);
+      defaultFunc(e, inputRef, index, length, counter, { type: "BACKWARDS" });
+    }
+
+    if (e.key === "ArrowRight") {
+      return defaultFunc(e, inputRef, index, length, counter);
+    }
+
+    if(e.key === 'Backspace') {
+        
+    }
 
     if (!Number.isFinite(Number(e.key))) return;
 
-    if (active) {
-      removeFocusOnLastChild(index, length, inputRef);
-      otpHandler(index, e.target.value);
-      increaseCounter();
-    }
+    return defaultFunc(e, inputRef, index, length, counter);
+    // if (active) {
+    //   removeFocusOnLastChild(index, length, inputRef);
+    //   otpHandler(index, e.target.value);
+    //   increaseCounter();
+    // }
   };
 
   const editHandler = (e) => {
@@ -22,7 +46,7 @@ const Input = ({ index, increaseCounter, counter, length, otpHandler }) => {
   };
 
   const loseHandler = () => {
-    increaseCounter(index);
+    increaseCounter({ type: "DEFAULT", value: index });
   };
 
   useEffect(() => {

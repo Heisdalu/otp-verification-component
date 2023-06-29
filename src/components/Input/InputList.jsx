@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Input from "./Input";
-import Button from '../Button/Button'
+import Button from "../Button/Button";
 
 const InputList = ({ boxList }) => {
   const [counter, setCounter] = useState(1);
@@ -9,9 +9,13 @@ const InputList = ({ boxList }) => {
 
   console.log(otpvalue);
 
-  const increaseCounter = (value) => {
-    if (value) {
-      return setCounter(value);
+  const increaseCounter = (obj) => {
+    if (obj?.type === "DEFAULT") {
+      return setCounter(obj.value);
+    }
+
+    if (obj?.type === "BACKWARDS") {
+      return setCounter((prev) => prev - 1);
     }
 
     if (counter + 1 >= boxList.length) {
