@@ -1,14 +1,59 @@
-const Input = () => {
+import PropTypes from "prop-types";
+import { useEffect, useRef } from "react";
+import { formatNumber, removeFocusOnLastChild } from "../../utils/helper";
+const Input = ({ index, increaseCounter, counter, length, otpHandler }) => {
+  const inputRef = useRef();
+  const active = index === counter;
+
+  const handler = (e) => {
+    formatNumber(e);
+
+    if (!Number.isFinite(Number(e.key))) return;
+
+    if (active) {
+      removeFocusOnLastChild(index, length, inputRef);
+      otpHandler(index, e.target.value);
+      increaseCounter();
+    }
+  };
+
+  const editHandler = (e) => {
+    formatNumber(e);
+  };
+
+  const loseHandler = () => {
+    increaseCounter(index);
+  };
+
+  useEffect(() => {
+    if (active) return inputRef.current.focus();
+    if (!active) {
+      inputRef.current.classList.remove("activeBorder");
+      inputRef.current.blur();
+      return;
+    }
+  }, [active, counter]);
+
   return (
     <input
       type="number"
       name=""
       id=""
-      maxLength="1"
-      max="1"
+      onKeyUp={handler}
+      onChange={editHandler}
+      onClick={loseHandler}
       placeholder="0"
-      className="placeholder:text-[#2E3650] h-[50px] text-[#2E3650] bg-[#1A2036] shadow-bc1 [border:1px_solid_#2E3650] rounded-[10px] w-[100%] flex justify-center items-center text-center md:h-[150px] font-lg md:text-[5rem] activeBorder"
+      ref={inputRef}
+      className={`input ${active && "activeBorder"}`}
     />
   );
-}
-export default Input
+};
+export default Input;
+
+Input.propTypes = {
+  index: PropTypes.number,
+  counter: PropTypes.number,
+  increaseCounter: PropTypes.func,
+  length: PropTypes.number,
+  otpHandler: PropTypes.func,
+};

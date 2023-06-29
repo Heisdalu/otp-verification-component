@@ -4,5 +4,5 @@ const Button = () => {
       Verify OTP
     </button>
   );
-}
-export default Button
+};
+export default Button;

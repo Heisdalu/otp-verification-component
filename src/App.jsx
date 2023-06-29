@@ -1,8 +1,10 @@
-import Button from "./components/Button/Button";
-import Input from "./components/Input/Input";
 import InputList from "./components/Input/InputList";
 
 const App = () => {
+  const box = 4;
+  const boxInput = Array(box).fill("");
+
+
   return (
     <div className="h-[100vh] bg-[#1A2036] flex justify-center items-center px-[1.5rem]">
       <div className="flex flex-col w-[100%] max-w-[700px] rounded-[25px] bg-[#252B42] shadow-bc1 p-[2rem]">
@@ -13,14 +15,7 @@ const App = () => {
           A four-digit code has been sent to your email name@frontendpro.dev
         </p>
 
-        <InputList>
-          <Input />
-          <Input />
-          <Input />
-          <Input />
-        </InputList>
-
-        <Button />
+        <InputList box={4} boxList={boxInput} />
       </div>
     </div>
   );
