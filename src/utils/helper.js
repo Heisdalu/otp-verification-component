@@ -5,7 +5,6 @@ export const formatNumber = (e) => {
   if (!numberValue) return (e.target.value = "");
   if (value < 0) return (e.target.value = 0);
   // once it's more than 1 or 1.. ediit to one character
-  // console.log(slicedValue);
   if (value.length >= 1) {
     return (e.target.value = e.target.value.slice(0, 1));
   }
