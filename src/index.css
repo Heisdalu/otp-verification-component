@@ -30,10 +30,12 @@
   .error {
     border: 1px solid red;
     color: red !important;
+    transition: all 500ms;
   }
 
   .valid {
     border: 1px solid green;
     color: green !important;
+    transition: all 500ms;
   }
 }
