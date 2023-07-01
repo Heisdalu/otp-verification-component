@@ -16,10 +16,7 @@ const Input = ({ index, increaseCounter, counter, length, otpHandler }) => {
 
   const handler = (e) => {
     formatNumber(e);
-    // if (!Number.isFinite(Number(e.target.value))) return;
     if (e.key === "ArrowLeft") {
-      const arrowLeftValue = counter - 1 <= 1 ? 1 : counter;
-      console.log(arrowLeftValue);
       defaultFunc(e, inputRef, index, length, counter, { type: "BACKWARDS" });
     }
 
@@ -27,18 +24,15 @@ const Input = ({ index, increaseCounter, counter, length, otpHandler }) => {
       return defaultFunc(e, inputRef, index, length, counter);
     }
 
-    if(e.key === 'Backspace') {
-        
+    if (e.key === "Backspace") {
+      defaultFunc(e, inputRef, index, length, counter, {
+        type: "BACKWARDS",
+      });
     }
 
     if (!Number.isFinite(Number(e.key))) return;
 
     return defaultFunc(e, inputRef, index, length, counter);
-    // if (active) {
-    //   removeFocusOnLastChild(index, length, inputRef);
-    //   otpHandler(index, e.target.value);
-    //   increaseCounter();
-    // }
   };
 
   const editHandler = (e) => {

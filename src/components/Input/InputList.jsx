@@ -5,9 +5,9 @@ import Button from "../Button/Button";
 
 const InputList = ({ boxList }) => {
   const [counter, setCounter] = useState(1);
-  const [otpvalue, setOtpValue] = useState([]);
+  const [otpValue, setOtpValue] = useState([]);
 
-  console.log(otpvalue);
+  console.log(otpValue);
 
   const increaseCounter = (obj) => {
     if (obj?.type === "DEFAULT") {
@@ -18,6 +18,10 @@ const InputList = ({ boxList }) => {
       return setCounter((prev) => prev - 1);
     }
 
+    if (obj?.type === "BACKSPACE") {
+      return;
+    }
+
     if (counter + 1 >= boxList.length) {
       return setCounter(boxList.length);
     }
@@ -26,7 +30,7 @@ const InputList = ({ boxList }) => {
   };
 
   const otpHandler = (index, value) => {
-    const arr = [...otpvalue];
+    const arr = [...otpValue];
     arr[index - 1] = value;
     setOtpValue(arr);
   };
@@ -42,11 +46,10 @@ const InputList = ({ boxList }) => {
             increaseCounter={increaseCounter}
             otpHandler={otpHandler}
             length={boxList.length}
-            otp={otpvalue}
           />
         ))}
       </section>
-      <Button />
+      <Button otp={otpValue} length={boxList.length} />
     </>
   );
 };
