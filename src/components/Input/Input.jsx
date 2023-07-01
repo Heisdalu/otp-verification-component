@@ -18,11 +18,14 @@ const Input = ({ index, increaseCounter, counter, length, otpHandler }) => {
     formatNumber(e);
 
     if (e.key === "Backspace") {
-      !inputRef.current.value
-        ? defaultFunc(e, inputRef, index, length, counter, {
-            type: "BACKWARDS",
-          })
-        : (e.target.value = "");
+      if (!inputRef.current.value) {
+        return defaultFunc(e, inputRef, index, length, counter, {
+          type: "BACKWARDS",
+        });
+      } else {
+        e.target.value = "";
+        otpHandler(index, "");
+      }
     }
 
     if (!Number.isFinite(Number(e.key))) return;

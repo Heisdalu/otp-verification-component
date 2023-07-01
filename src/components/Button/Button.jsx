@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 
 const Button = ({ otp, length }) => {
   const [valid, setValid] = useState({ type: null, okay: false });
+  const [touched, setTouched] = useState(false);
   const realNumber = otp
-    .filter((i) => i.trim() !== "")
+    .filter((i) => i !== "")
     .filter((el) => Number.isFinite(Number(el)));
-  // console.log(realNumber);
+
 
   const clickHandler = () => {
+    setTouched(true);
     if (realNumber.length !== length) {
       return setValid({ type: "clicked", okay: false });
     }
@@ -20,7 +22,11 @@ const Button = ({ otp, length }) => {
     if (realNumber.length === length) {
       setValid({ type: "clicked", okay: true });
     }
-  }, [length, otp, realNumber.length]);
+
+    if (realNumber.length !== length && touched) {
+      setValid({ type: "clicked", okay: false });
+    }
+  }, [length, otp, realNumber.length, touched]);
 
   return (
     <button
