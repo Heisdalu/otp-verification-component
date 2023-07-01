@@ -16,18 +16,13 @@ const Input = ({ index, increaseCounter, counter, length, otpHandler }) => {
 
   const handler = (e) => {
     formatNumber(e);
-    if (e.key === "ArrowLeft") {
-      defaultFunc(e, inputRef, index, length, counter, { type: "BACKWARDS" });
-    }
-
-    if (e.key === "ArrowRight") {
-      return defaultFunc(e, inputRef, index, length, counter);
-    }
 
     if (e.key === "Backspace") {
-      defaultFunc(e, inputRef, index, length, counter, {
-        type: "BACKWARDS",
-      });
+      !inputRef.current.value
+        ? defaultFunc(e, inputRef, index, length, counter, {
+            type: "BACKWARDS",
+          })
+        : (e.target.value = "");
     }
 
     if (!Number.isFinite(Number(e.key))) return;
@@ -41,6 +36,12 @@ const Input = ({ index, increaseCounter, counter, length, otpHandler }) => {
 
   const loseHandler = () => {
     increaseCounter({ type: "DEFAULT", value: index });
+  };
+
+  const upHand = (e) => {
+    if (e.key === "Backspace") {
+      e.preventDefault();
+    }
   };
 
   useEffect(() => {
@@ -58,14 +59,13 @@ const Input = ({ index, increaseCounter, counter, length, otpHandler }) => {
       name=""
       id=""
       onKeyUp={handler}
+      onKeyDown={upHand}
       onChange={editHandler}
       onClick={loseHandler}
-      placeholder="0"
+      onPaste={(e) => e.preventDefault()}
+      onCopy={(e) => e.preventDefault()}
       ref={inputRef}
       className={`input ${active && "activeBorder"}`}
-      onCopy={false}
-      onPaste={false}
-      onCut={false}
     />
   );
 };

@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 
 const Button = ({ otp, length }) => {
   const [valid, setValid] = useState({ type: null, okay: false });
-  const realNumber = otp.filter((el) => Number.isFinite(Number(el)));
+  const realNumber = otp
+    .filter((i) => i.trim() !== "")
+    .filter((el) => Number.isFinite(Number(el)));
+  // console.log(realNumber);
 
   const clickHandler = () => {
     if (realNumber.length !== length) {
@@ -17,7 +20,7 @@ const Button = ({ otp, length }) => {
     if (realNumber.length === length) {
       setValid({ type: "clicked", okay: true });
     }
-  }, [length, realNumber.length]);
+  }, [length, otp, realNumber.length]);
 
   return (
     <button

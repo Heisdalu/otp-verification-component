@@ -8,6 +8,14 @@
     -webkit-appearance: none;
   }
 
+  body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+
   input[type="number"] {
     -moz-appearance: textfield;
   }
@@ -31,11 +39,13 @@
     border: 1px solid red;
     color: red !important;
     transition: all 500ms;
+    box-shadow: 0px 10px 25px -15px red !important;
   }
 
   .valid {
     border: 1px solid green;
     color: green !important;
     transition: all 500ms;
+    box-shadow: 0px 10px 25px -15px green !important;
   }
 }
