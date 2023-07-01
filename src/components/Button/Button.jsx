@@ -38,5 +38,5 @@ export default Button;
 
 Button.propTypes = {
   otp: PropTypes.array,
-  length: PropTypes.string,
+  length: PropTypes.number,
 };
