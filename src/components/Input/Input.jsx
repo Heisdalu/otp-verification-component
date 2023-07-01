@@ -63,6 +63,9 @@ const Input = ({ index, increaseCounter, counter, length, otpHandler }) => {
       placeholder="0"
       ref={inputRef}
       className={`input ${active && "activeBorder"}`}
+      onCopy={false}
+      onPaste={false}
+      onCut={false}
     />
   );
 };
