@@ -7,8 +7,6 @@ const InputList = ({ boxList }) => {
   const [counter, setCounter] = useState(1);
   const [otpValue, setOtpValue] = useState([]);
 
-  console.log(otpValue);
-
   const increaseCounter = (obj) => {
     if (obj?.type === "DEFAULT") {
       return setCounter(obj.value);
